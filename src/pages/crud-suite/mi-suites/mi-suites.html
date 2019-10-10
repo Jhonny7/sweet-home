@@ -1,0 +1,41 @@
+<ion-header [scrollHide]="headerScrollConfig" [scrollContent]="pageContent">
+  <ion-navbar color="primary" id="nav-bar-id">
+    <ion-title >{{'MY-SUITES' | translate}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content #pageContent id="contenido-suites" fullscreen>
+<div id="temporal">
+</div>
+    <div *ngIf="suites?.length === 0" class="centro">
+        <ion-spinner></ion-spinner>
+    </div>
+  <ion-list *ngIf="suites?.length > 0">
+    <ion-item-sliding *ngFor="let suite of suites">
+      <ion-item>
+        <ion-thumbnail item-start>
+          <img src="{{suite.photos[0]}}" *ngIf="suite.photos.length>0" />
+          <img src="assets/imgs/recursos/no-disponible.png" *ngIf="suite.photos == null || suite.photos.length <= 0">
+        </ion-thumbnail>
+        <h2>{{suite.title}}</h2>
+        <p>{{suite.description}}</p>
+        <button ion-button clear item-end (tap)="viewSuite(suite)">{{'VIEW' | translate}}</button>
+      </ion-item>
+
+      <ion-item-options side="right">
+        <button ion-button color="danger">
+          <ion-icon ios="ios-trash" md="ios-trash" (tap)="confirmDelete(suite)"></ion-icon>
+          {{'DELETE' | translate}}
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+    
+  </ion-list>
+
+</ion-content>
+
+<ion-fab bottom right class="animated swing">
+  <button ion-fab (click)="viewSuite()" color="naranja">
+    <ion-icon name="add"></ion-icon>
+  </button>
+</ion-fab>

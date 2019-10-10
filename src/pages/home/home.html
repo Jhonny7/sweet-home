@@ -1,18 +1,47 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title>{{'RESULTS' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+  <div *ngFor="let suite of suites" class="full-size">
+    <ion-card>
+      <div class="photos">
+        <ion-icon ios="ios-images-outline" md="ios-images-outline"></ion-icon>
+        <p>{{suite.photos.length}}</p>
+      </div>
+      <div class="favorito">
+        <ion-icon ios="ios-heart-outline" md="ios-heart-outline" *ngIf="!suite.favorite" (tap)="addFavorite(suite)"></ion-icon>
+        <ion-icon ios="ios-heart" md="ios-heart" *ngIf="suite.favorite" style="color: #f00;" (tap)="deleteFavorite(suite)"></ion-icon>
+      </div>
+      <img src="{{suite.photos[0]}}" *ngIf="suite.photos.length>0" />
+      <img src="assets/imgs/recursos/no-disponible.png" *ngIf="suite.photos == null || suite.photos.length <= 0" />
+      <div class="card-title">{{suite.title}}</div>
+      <div class="card-subtitle">${{suite.price}}</div>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+      <!-- imagenes adicionales -->
+      <div class="info-icons">
+        <div class="square">
+          <p>{{suite.bathrooms}}</p>
+          <img src="assets/imgs/recursos/toilet.png" alt="">
+        </div>
+        <div class="square">
+          <p>{{suite.bedrooms}}</p>
+          <img src="assets/imgs/recursos/bed.png" alt="">
+        </div>
+        <div class="square">
+          <p>{{suite.garages}}</p>
+          <img src="assets/imgs/recursos/garage.png" alt="">
+        </div>
+      </div>
+    </ion-card>
+  </div>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" >
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

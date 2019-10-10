@@ -1,0 +1,41 @@
+page-primer-paso {
+  .logo {
+    position: absolute;
+    z-index: 1;
+    top: 1%;
+    text-align: -webkit-right;
+    width: 100%;
+    right: 10px;
+    img {
+      width: 45px;
+    }
+  }
+  .inicio {
+    position: absolute;
+    bottom: 0;
+    padding: 20px;
+    text-align: center;
+    font-size: 116%;
+    font-family: sans-serif;
+    color: #396171;
+    text-shadow: 0px 0px 0px #000;
+    width: 100%;
+    .texto {
+    }
+    .divider {
+      width: 100%;
+      .cuadro {
+        display: inline-block;
+        width: 48%;
+        background-color: white;
+        border-radius: 5px;
+        padding: 10px;
+        box-shadow: 0px 1px 2px 0px #375c6a;
+        margin-top: 30px;
+        img {
+          width: 20px;
+        }
+      }
+    }
+  }
+}

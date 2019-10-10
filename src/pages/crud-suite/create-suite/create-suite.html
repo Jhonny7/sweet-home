@@ -1,0 +1,231 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>{{dataParams.title}}</ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span color="secundary" showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<div id="myModal" class="modal">
+  <span class="close" (click)="deletePhoto(photo,i)">&times;</span>
+  <img class="modal-content" id="img01">
+
+</div>
+
+<ion-content>
+  <!-- <div class="container-card">
+    <div class="separate-card">
+        <div class="my-card">
+            <h2>titulo</h2>
+          </div>
+    </div>
+    <div class="separate-card">
+        <div class="my-card">
+            <h2>titulo</h2>
+          </div>
+    </div>
+  </div> -->
+
+  <!-- <img [src]="src" imageViewer #myImage /> -->
+
+
+
+  <div class="sin-foto" (tap)="openGallery2()" *ngIf="imagesTemp.length === 0">
+    <div>
+      <img src="assets/imgs/suite/photo.png" />
+      <span>Agregar fotos</span>
+    </div>
+  </div>
+
+  <div class="scrolling-wrapper" *ngIf="imagesTemp.length > 0">
+    <div id="card-{{i}}" class="card animated lightSpeedIn" *ngFor="let photo of imagesTemp; let i = index" (click)="showPhoto(myImage,i)">
+      <div class="tacha">
+        <ion-icon ios="ios-close" md="ios-close" (tap)="deletePhoto(photo,i)"></ion-icon>
+      </div>
+      <div class="container-card">
+
+        <img src="{{photo.img}}" />
+      </div>
+    </div>
+    <div class="sin-fotos" *ngIf="imagesTemp.length < 10">
+      <div (click)="openGallery2()">
+        <img src="assets/imgs/suite/photo.png" />
+        <span>Agregar fotos</span>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <form [formGroup]="formGroup" (ngSubmit)="createSuite()">
+      <ion-item>
+        <ion-label color="" floating>{{'TITLE' | translate}}</ion-label>
+        <ion-input formControlName="title" required></ion-input>
+      </ion-item>
+      <app-control-messages [control]="formGroup.controls.title"></app-control-messages>
+
+      <ion-item style="margin-bottom: 7px;">
+        <ion-label color="" floating>{{'DESCRIPTION' | translate}}</ion-label>
+        <ion-textarea formControlName="description" required maxlength="500" [(ngModel)]="dataParams.descriptionCount"></ion-textarea>
+
+      </ion-item>
+
+      <span class="alineado-izquierda">{{ 500 - dataParams.descriptionCount.length }} {{'CHARACTERS' | translate}}</span>
+      <app-control-messages [control]="formGroup.controls.description"></app-control-messages>
+
+
+      <ion-item class="separation-bottom" style="margin-top: 10px;">
+        <ion-label>{{ 'TYPE' | translate }}</ion-label>
+        <ion-select  formControlName="type" [(ngModel)]="dataParams.idType" interface="action-sheet" [selectOptions]="actionSheetClass"
+          (ionChange)="onChangeGeneric($event)" [disabled]="catalogoTypes.length == 0">
+          <ion-option *ngFor="let type of catalogoTypes; let i=index" [value]="type.id">{{type.label | translate}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>{{ 'PROPERTY-TYPE' | translate }}</ion-label>
+        <ion-select formControlName="catalogType" [(ngModel)]="dataParams.idPropertyType" interface="action-sheet" (ionChange)="onChangeGeneric($event)"
+          [selectOptions]="actionSheetClass" [disabled]="catalogoPropertyTypes.length == 0">
+          <ion-option *ngFor="let type of catalogoPropertyTypes" [value]="type.id">{{type.label | translate}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="top-item">
+        <ion-label>{{ 'BEDROOMS' | translate }}</ion-label>
+      </ion-item>
+      <div class="selection-step">
+        <div class="container-step">
+          <div *ngFor="let obj of objBedRooms" (tap)="setBedRoom(obj)" class="step" [ngClass]="{'seleccionado':obj.selected}">
+            {{obj.description}}
+          </div>
+        </div>
+      </div>
+
+      <ion-item class="top-item">
+        <ion-label>{{ 'BATHROOM' | translate }}</ion-label>
+      </ion-item>
+      <div class="selection-step">
+        <div class="container-step">
+          <div *ngFor="let obj of objBathRooms" (tap)="setBathRoom(obj)" class="step" [ngClass]="{'seleccionado':obj.selected}">
+            {{obj.description}}
+          </div>
+        </div>
+      </div>
+
+      <ion-item class="top-item">
+        <ion-label>{{ 'PARKING-LOT' | translate }}</ion-label>
+      </ion-item>
+      <div class="selection-step">
+        <div class="container-step">
+          <div *ngFor="let obj of objParking" (tap)="setParking(obj)" class="step" [ngClass]="{'seleccionado':obj.selected}">
+            {{obj.description}}
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="container-divs">
+
+        <div class="container">
+          <ion-item class="top-item" style="padding-left:0px">
+            <ion-label>{{ 'PRICE' | translate }}</ion-label>
+          </ion-item>
+        </div>
+
+        <div class="container">
+          <ion-item class="top-item" style="padding-left:0px">
+            <ion-label>{{ 'TERRAIN-SIZE' | translate }}</ion-label>
+          </ion-item>
+        </div>
+
+        <div class="container">
+          <input currencyMask [(ngModel)]="dataParams.currency" type="tel" min="0" [id]="'yourInputId' + index" (focus)="scrollTo(index)"
+            formControlName="saldo" class="izquierda" />
+          <app-control-messages [control]="formGroup.controls.saldo"></app-control-messages>
+        </div>
+
+        <div class="container">
+          <input currencyMask [(ngModel)]="dataParams.size" type="tel" min="0" [options]="{ prefix: 'm² '}" [id]="'yourInputId' + index"
+            (focus)="scrollTo(index)" formControlName="size" class="izquierda" />
+          <app-control-messages [control]="formGroup.controls.size"></app-control-messages>
+        </div>
+
+      </div>
+
+      <div class="zip">
+        <ion-item>
+          <ion-label color="" floating>{{'ZIP-CODE' | translate}}</ion-label>
+          <ion-input formControlName="zip" (blur)="onBlurMethod($event.target.value)" type="number" max="99999"></ion-input>
+        </ion-item>
+        <ion-spinner *ngIf="activoZip"></ion-spinner>
+      </div>
+
+      <ion-item class="separation-bottom">
+        <ion-label>{{ 'STATE' | translate }}</ion-label>
+        <ion-select formControlName="state" [(ngModel)]="dataParams.idState" interface="action-sheet" [selectOptions]="actionSheetClass"
+          (ionChange)="onChangeState($event)" [disabled]="estados.length == 0">
+          <ion-option *ngFor="let estado of estados" [value]="estado.id">{{estado.label | translate}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <app-control-messages [control]="formGroup.controls.state"></app-control-messages>
+
+
+      <ion-item>
+        <ion-label>{{ 'CITY' | translate }}</ion-label>
+        <ion-select formControlName="city" [(ngModel)]="dataParams.idCity" interface="action-sheet" [selectOptions]="actionSheetClass"
+          [disabled]="cities.length == 0">
+          <ion-option *ngFor="let city of cities" [value]="city.id">{{city.label | translate}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <app-control-messages [control]="formGroup.controls.city"></app-control-messages>
+
+      <ion-item>
+        <ion-label>{{ 'SETTLEMENT' | translate }}</ion-label>
+        <ion-select formControlName="settlement" [(ngModel)]="dataParams.idSettlement" interface="action-sheet"
+          [selectOptions]="actionSheetClass" [disabled]="settlements.length == 0">
+          <ion-option *ngFor="let settlement of settlements" [value]="city.id">{{settlement.label | translate}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <app-control-messages [control]="formGroup.controls.settlement"></app-control-messages>
+
+
+      <ion-item>
+        <ion-label color="" floating>{{'SETTLEMENT_OTHER' | translate}}</ion-label>
+        <ion-input formControlName="settlement_other"></ion-input>
+      </ion-item>
+
+
+      <ion-item>
+        <ion-label color="" floating>{{'EXTERNAL_NUMBER' | translate}}</ion-label>
+        <ion-input formControlName="external_number" required></ion-input>
+      </ion-item>
+      <app-control-messages [control]="formGroup.controls.external_number"></app-control-messages>
+
+      <ion-item>
+        <ion-label color="" floating>{{'INTERNAL_NUMBER' | translate}}</ion-label>
+        <ion-input formControlName="internal_number"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="" floating>{{'STREET' | translate}}</ion-label>
+        <ion-input formControlName="street" required></ion-input>
+      </ion-item>
+      <app-control-messages [control]="formGroup.controls.street"></app-control-messages>
+    </form>
+
+  </div>
+
+</ion-content>
+<ion-footer>
+  <form [formGroup]="formGroup" (ngSubmit)="createSuite()">
+    <button ion-button full type="submit" color="primary" style="margin-bottom: 0px;">
+      <ion-icon name="save"></ion-icon>
+      {{'SAVE' | translate}}
+    </button>
+  </form>
+</ion-footer>

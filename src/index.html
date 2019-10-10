@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
   <meta charset="UTF-8">
-  <title>Ionic App</title>
+  <title>Suite Home</title>
   <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
 
@@ -30,6 +32,7 @@
   <link href="build/main.css" rel="stylesheet">
 
 </head>
+
 <body>
 
   <!-- Ionic's root component and where the app will load -->
@@ -38,6 +41,8 @@
   <!-- The polyfills js is generated during the build process -->
   <script src="build/polyfills.js"></script>
 
+  <script src="assets/js/directive.js"></script>
+
   <!-- The vendor js is generated during the build process
        It contains all of the dependencies in node_modules -->
   <script src="build/vendor.js"></script>
@@ -45,5 +50,26 @@
   <!-- The main bundle js is generated during the build process -->
   <script src="build/main.js"></script>
 
+  <script>
+
+    function openCity(evt, cityName) {
+      console.log(evt);
+      console.log(cityName);
+      
+      var i, tabcontent, tablinks;
+      /*tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }*/
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      //document.getElementById(cityName).style.display = "block";
+      evt.currentTarget.className += " active";
+
+    }
+  </script>
 </body>
+
 </html>

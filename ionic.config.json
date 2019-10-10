@@ -1,5 +1,7 @@
 {
   "name": "sweet-home",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular"
 }

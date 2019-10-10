@@ -1,0 +1,46 @@
+<ion-content>
+  <div class="form-structor">
+    <div class="signup" id="aplica-signup">
+      <h2 class="form-title" id="signup" (tap)="singUpClick()"><span>{{'OR' | translate}}</span>{{'SIGN-UP' |
+        translate}}</h2>
+      <div class="form-holder">
+        <div class="avatar">
+          <div class="imagen" (tap)="opcionesDeImagen()">
+            <img src="assets/imgs/login/user.png" alt="" *ngIf="userLogout.img.length == 0">
+            <img src="{{userLogout.img}}" alt="" *ngIf="userLogout.img.length > 0">
+          </div>
+        </div>
+
+          <input type="text" class="input" placeholder="{{'NAME' | translate}}" [(ngModel)]="userLogout.nombre" />
+          <input type="email" class="input" placeholder="{{'EMAIL' | translate}}" [(ngModel)]="userLogout.email" />
+          <input type="password" class="input" placeholder="{{'PASSWORD' | translate}}" [(ngModel)]="userLogout.contrasenia"/>
+          <input type="password" class="input" placeholder="{{'CONFIRM-PASSWORD' | translate}}" [(ngModel)]="userLogout.confirmarContrasenia" />
+          <input type="tel" class="input" placeholder="{{'PHONE' | translate}}" [(ngModel)]="userLogout.telefono" 
+          id="phone" />
+        
+      </div>
+      <button class="submit-btn" (tap)="createUser()">{{'SIGN-UP' | translate}}</button>
+    </div>
+    <div class="login slide-up" id="aplica-login">
+      <div class="center">
+        <h2 class="form-title" id="login" (tap)="loginClick()"><span>{{'OR' | translate}}</span>{{'LOGIN' | translate}}</h2>
+        <div class="form-holder">
+          <input type="email" class="input" placeholder="Email" [(ngModel)]="user.email"/>
+          <input type="password" class="input" placeholder="Password" [(ngModel)]="user.contrasenia"/>
+        </div>
+        <button class="submit-btn" (tap)="loginNormal()">{{'LOGIN' | translate}}</button>
+
+        <div class="otro-login">
+          <button class="submit-btn2" (tap)="googlePlusLogin()">
+            <ion-icon name="logo-googleplus"></ion-icon>
+            {{'CONTINUE' | translate}} google
+          </button>
+          <button class="submit-btn3" (tap)="facebookLogin()">
+            <ion-icon name="logo-facebook"></ion-icon>
+            {{'CONTINUE' | translate}} facebook
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

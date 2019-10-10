@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>568374647653-bpnf4gir6l4umuvrcutc1hia58hg48tl.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.568374647653-bpnf4gir6l4umuvrcutc1hia58hg48tl</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD1IzmWe4_iXQJVC3hUK-Ahn-Wd4FI22Ao</string>
+	<key>GCM_SENDER_ID</key>
+	<string>568374647653</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>mx.com.fares.suite.home</string>
+	<key>PROJECT_ID</key>
+	<string>suite-home-99817</string>
+	<key>STORAGE_BUCKET</key>
+	<string>suite-home-99817.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:568374647653:ios:70217fbb6f0fdeff515f8c</string>
+	<key>DATABASE_URL</key>
+	<string>https://suite-home-99817.firebaseio.com</string>
+</dict>
+</plist>

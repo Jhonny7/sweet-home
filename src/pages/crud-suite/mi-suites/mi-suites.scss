@@ -1,0 +1,36 @@
+page-mi-suites {
+  .spinner-md-crescent circle {
+    stroke: #164e87;
+  }
+  .spinner-ios-crescent circle {
+    stroke: #164e87;
+  }
+  .centro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90%;
+  }
+  ion-spinner{
+    height: 44px;
+    width: 44px;
+  }
+
+  ion-item {
+    ion-thumbnail {
+      img {
+        border: 0.6px solid #d7d7d8;
+        border-radius: 6px;
+      }
+    }
+  }
+  ion-item-options {
+    button {
+      span {
+        ion-icon {
+          font-size: 2.5em !important;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,176 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-buttons left>
+      <img src="assets/imgs/suiteHome.png" alt="" class="title-img" style="background-color:#fff;border-radius: 3px;width: 25px;">
+    </ion-buttons>
+    <ion-title>Suite home</ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only color="light">
+        <ion-icon ios="md-settings" md="md-settings"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <div class="tab">
+    <button class="tablinks active" onclick="openCity(event, 'b1')" id="defaultOpen" (click)="activar1()">{{ 'RENT' |
+      translate }}</button>
+    <button class="tablinks" onclick="openCity(event, 'b2')" (click)="activar2()">{{ 'BUY' | translate }}</button>
+  </div>
+</ion-header>
+
+
+<ion-content>
+
+
+  <div id="b1" class="contenido" *ngIf="active1">
+    <div class="apartado">
+      <ion-item class="separation-bottom">
+        <ion-label>{{ 'TYPE' | translate }}</ion-label>
+        <ion-select [(ngModel)]="selecciones.idType" interface="action-sheet" [selectOptions]="actionSheetClass"
+          (ionChange)="onChangeGeneric($event)">
+          <ion-option *ngFor="let type of catalogoTypes; let i=index" [value]="type.id">{{type.label | translate}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ 'PROPERTY-TYPE' | translate }}</ion-label>
+        <ion-select [(ngModel)]="selecciones.idPropertyType" interface="action-sheet" (ionChange)="onChangeGeneric($event)"
+          [selectOptions]="actionSheetClass">
+          <ion-option *ngFor="let type of catalogoPropertyTypes" [value]="type.id">{{type.label | translate}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>{{ 'PRICE' | translate }}</ion-label>
+      </ion-item>
+      <div class="price">
+        <ion-item class="uno">
+          <ion-select [(ngModel)]="selecciones.seleccionPrecioLow" [selectOptions]="actionSheetClass" interface="action-sheet"
+            #seleccionPrecio (ionChange)="onChangePrice($event)">
+            <ion-option *ngFor="let precioLow of precios" [value]="precioLow.id">${{precioLow.label | translate}}</ion-option>
+          </ion-select>
+        </ion-item>
+        <div class="dos">
+          <div class="separacion">
+            -
+          </div>
+        </div>
+        <ion-item class="uno">
+          <ion-select [(ngModel)]="selecciones.seleccionPrecioHigh" [selectOptions]="actionSheetClass" (ionChange)="onChangePrice($event)"
+            interface="action-sheet">
+            <ion-option *ngFor="let precioHigh of precios" [value]="precioHigh.id">${{precioHigh.label | translate}}</ion-option>
+          </ion-select>
+        </ion-item>
+      </div>
+
+      <ion-item>
+        <ion-label>{{ 'BEDROOMS' | translate }}</ion-label>
+      </ion-item>
+      <div class="selection-step">
+        <div class="container-step">
+          <div *ngFor="let obj of objBedRooms" (tap)="setBedRoom(obj)" class="step" [ngClass]="{'seleccionado':obj.selected}">
+            {{obj.description}}
+          </div>
+        </div>
+      </div>
+
+      <ion-item>
+        <ion-label>{{ 'BATHROOM' | translate }}</ion-label>
+      </ion-item>
+      <div class="selection-step">
+        <div class="container-step">
+          <div *ngFor="let obj of objBathRooms" (tap)="setBathRoom(obj)" class="step" [ngClass]="{'seleccionado':obj.selected}">
+            {{obj.description}}
+          </div>
+        </div>
+      </div>
+
+
+      <ion-item>
+        <ion-label>{{ 'TERRAIN-SIZE' | translate }}</ion-label>
+      </ion-item>
+      <div class="price">
+        <ion-item class="uno">
+          <ion-select [(ngModel)]="selecciones.seleccionTerrenoLow" [selectOptions]="actionSheetClass" interface="action-sheet"
+            #seleccionPrecio (ionChange)="onChangeTerrain($event)">
+            <ion-option *ngFor="let terrenoLow of terrenoSize" [value]="terrenoLow.id">{{terrenoLow.label | translate}}</ion-option>
+          </ion-select>
+        </ion-item>
+        <div class="dos">
+          <div class="separacion">
+            -
+          </div>
+        </div>
+        <ion-item class="uno">
+          <ion-select [(ngModel)]="selecciones.seleccionTerrenoHigh" (ionChange)="onChangeTerrain($event)"
+            [selectOptions]="actionSheetClass" interface="action-sheet">
+            <ion-option *ngFor="let terrenoHigh of terrenoSize" [value]="terrenoHigh.id">{{terrenoHigh.label |
+              translate}}</ion-option>
+          </ion-select>
+        </ion-item>
+      </div>
+
+
+      <ion-item class="separation-bottom">
+        <ion-label>{{ 'STATE' | translate }}</ion-label>
+        <ion-select [(ngModel)]="selecciones.idState" interface="action-sheet" [selectOptions]="actionSheetClass"
+          (ionChange)="onChangeState($event)">
+          <ion-option *ngFor="let estado of estados" [value]="estado.id">{{estado.label | translate}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+
+      <ion-item>
+        <ion-label>{{ 'CITY' | translate }}</ion-label>
+        <ion-select [(ngModel)]="selecciones.idCity" interface="action-sheet" [selectOptions]="actionSheetClass"
+          [disabled]="selecciones.idState == 0 && cities.length < 2">
+          <ion-option *ngFor="let city of cities" [value]="city.id">{{city.label | translate}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>{{ 'PARKING-LOT' | translate }}</ion-label>
+      </ion-item>
+      <div class="selection-step">
+        <div class="container-step">
+          <div *ngFor="let obj of objParking" (tap)="setParking(obj)" class="step" [ngClass]="{'seleccionado':obj.selected}">
+            {{obj.description}}
+          </div>
+        </div>
+      </div>
+
+      <ion-item>
+        <ion-label>{{ 'SEARCH-ME' | translate}}</ion-label>
+        <ion-toggle [(ngModel)]="selecciones.cercaDeMi" (ionChange)="onChangeToggle($event)"></ion-toggle>
+      </ion-item>
+    </div>
+  </div>
+
+
+
+  <div id="b2" class="contenido" *ngIf="!active2">
+    <div class="apartado">
+
+    </div>
+  </div>
+
+</ion-content>
+
+<ion-footer class="no-maintabs">
+  <button ion-button full class="button-footer" *ngIf="selecciones.buttonEnabled" (tap)="verSuites()">{{ 'SHOW' |
+    translate}}
+    &nbsp;&nbsp;<div class="counter">
+      {{counter}}
+    </div>&nbsp;&nbsp;
+    {{ 'ADS' | translate}}
+    <div class="spinner-div" *ngIf="buscando">
+      <ion-spinner></ion-spinner>
+    </div>
+  </button>
+  <button ion-button full class="button-footer counter" *ngIf="!selecciones.buttonEnabled" (tap)="search(1)">{{
+    'SEARCH'
+    | translate}}
+    <div class="spinner-div" *ngIf="buscando">
+      <ion-spinner></ion-spinner>
+    </div>
+  </button>
+</ion-footer>
